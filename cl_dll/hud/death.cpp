@@ -104,12 +104,12 @@ int CHudDeathNotice :: VidInit( void )
 	m_KM_Icon_Knife = gHUD.GetSpriteIndex("KM_Icon_knife");
 	m_KM_Icon_Frag = gHUD.GetSpriteIndex("KM_Icon_Frag");
 
-	m_killBg[0] = gRenderAPI.GL_LoadTexture("resource/Hud/DeathNotice/KillBg_left", NULL, 0, TF_NEAREST | TF_NOPICMIP | TF_NOMIPMAP | TF_CLAMP);
-	m_killBg[1] = gRenderAPI.GL_LoadTexture("resource/Hud/DeathNotice/KillBg_center", NULL, 0, TF_NEAREST | TF_NOPICMIP | TF_NOMIPMAP | TF_CLAMP);
-	m_killBg[2] = gRenderAPI.GL_LoadTexture("resource/Hud/DeathNotice/KillBg_right", NULL, 0, TF_NEAREST | TF_NOPICMIP | TF_NOMIPMAP | TF_CLAMP);
-	m_deathBg[0] = gRenderAPI.GL_LoadTexture("resource/Hud/DeathNotice/DeathBg_left", NULL, 0, TF_NEAREST | TF_NOPICMIP | TF_NOMIPMAP | TF_CLAMP);
-	m_deathBg[1] = gRenderAPI.GL_LoadTexture("resource/Hud/DeathNotice/DeathBg_center", NULL, 0, TF_NEAREST | TF_NOPICMIP | TF_NOMIPMAP | TF_CLAMP);
-	m_deathBg[2] = gRenderAPI.GL_LoadTexture("resource/Hud/DeathNotice/DeathBg_right", NULL, 0, TF_NEAREST | TF_NOPICMIP | TF_NOMIPMAP | TF_CLAMP);
+	m_killBg[0] = gRenderAPI.GL_LoadTexture("resource/Hud/DeathNotice/KillBg_left_new", NULL, 0, TF_NEAREST | TF_NOPICMIP | TF_NOMIPMAP | TF_CLAMP);
+	m_killBg[1] = gRenderAPI.GL_LoadTexture("resource/Hud/DeathNotice/KillBg_center_new", NULL, 0, TF_NEAREST | TF_NOPICMIP | TF_NOMIPMAP | TF_CLAMP);
+	m_killBg[2] = gRenderAPI.GL_LoadTexture("resource/Hud/DeathNotice/KillBg_right_new", NULL, 0, TF_NEAREST | TF_NOPICMIP | TF_NOMIPMAP | TF_CLAMP);
+	m_deathBg[0] = gRenderAPI.GL_LoadTexture("resource/Hud/DeathNotice/DeathBg_left_new", NULL, 0, TF_NEAREST | TF_NOPICMIP | TF_NOMIPMAP | TF_CLAMP);
+	m_deathBg[1] = gRenderAPI.GL_LoadTexture("resource/Hud/DeathNotice/deathbg_center_new", NULL, 0, TF_NEAREST | TF_NOPICMIP | TF_NOMIPMAP | TF_CLAMP);
+	m_deathBg[2] = gRenderAPI.GL_LoadTexture("resource/Hud/DeathNotice/DeathBg_right_new", NULL, 0, TF_NEAREST | TF_NOPICMIP | TF_NOMIPMAP | TF_CLAMP);
 
 	return 1;
 }
