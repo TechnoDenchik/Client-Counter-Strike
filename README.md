@@ -17,7 +17,7 @@
   - 1.3 - Установить конфигурацию сборки Release / Debug и разрядность x86 обязательно иначе просто не будет собираться.
   - 1.4 - Собрать решение
 
-# Couner-Strike:EN
+# Counter-Strike:EN
 >The standard client Counter Strike for the old fork of the Xash 3D Fwgs engine, the code will be updated gradually
 
 ## Component
