@@ -1,5 +1,5 @@
 # Counter-Strike:RU
->Стандартный клиент для Counter Strike для старого форка движка Xash 3D Fwgs, постепенно код будет обновляться
+>Стандартный клиент Counter Strike для старого форка движка Xash 3D Fwgs, постепенно код будет обновляться
 
 ## Составляющее
 * [x] Стандартный режим игры
@@ -18,7 +18,7 @@
   - 1.4 - Собрать решение
 
 # Couner-Strike:EN
->The standard client for Counter Strike for the old fork of the Xash 3D Fwgs engine, the code will be updated gradually
+>The standard client Counter Strike for the old fork of the Xash 3D Fwgs engine, the code will be updated gradually
 
 ## Component
 * [x] Standard game mode
