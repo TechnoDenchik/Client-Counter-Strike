@@ -53,6 +53,7 @@ typedef struct
 	menuCheckBox_s	fastSky;
 	menuCheckBox_s	hiTextures;
 	menuCheckBox_s	vsync;
+	menuCheckBox_s  fpsmax;
 
 	HIMAGE		hTestImage;
 } uiVidOptions_t;
@@ -130,7 +131,7 @@ static void UI_VidOptions_Ownerdraw( void *self )
 {
 	menuCommon_s	*item = (menuCommon_s *)self;
 	int		color = 0xFFFF0000; // 255, 0, 0, 255
-	int		viewport[4];
+	int		viewport[4]{};
 	int		viewsize, size, sb_lines;
 
 	viewsize = CVAR_GET_FLOAT( "viewsize" );

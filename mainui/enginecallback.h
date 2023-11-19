@@ -56,6 +56,7 @@ inline HIMAGE PIC_Load( const char *szPicName, const byte *ucRawImage, long ulRa
 #define CVAR_SET_FLOAT	(*g_engfuncs.pfnCvarSetValue)
 #define CVAR_GET_FLOAT	(*g_engfuncs.pfnGetCvarFloat)
 #define CVAR_GET_STRING	(*g_engfuncs.pfnGetCvarString)
+#define CVAR_GET_FLOAT_FPS (*g_engfuncs.pfnGetCvarFloatFPS)
 #define CVAR_SET_STRING	(*g_engfuncs.pfnCvarSetString)
 #define CLIENT_COMMAND	(*g_engfuncs.pfnClientCmd)
 #define CLIENT_JOIN		(*g_engfuncs.pfnClientJoin)

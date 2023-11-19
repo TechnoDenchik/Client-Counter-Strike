@@ -122,13 +122,13 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="../mainui\udll_int.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\legacy</Filter>
     </ClCompile>
     <ClCompile Include="../mainui\ui_title_anim.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\legacy</Filter>
     </ClCompile>
     <ClCompile Include="../mainui\utils.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\legacy</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

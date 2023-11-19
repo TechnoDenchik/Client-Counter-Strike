@@ -298,7 +298,7 @@ static void UI_Crosshair_Ownerdraw( void *self )
 	UI_DrawPic(item->generic.x, item->generic.y, item->generic.width, item->generic.height, 0x00FFFFFF, "gfx/vgui/crosshair" );
 
 
-	int l;
+	int l{};
 	switch( (int)uiPlayerSetup.crosshairSize.curValue )
 	{
 	case 1:
@@ -367,7 +367,7 @@ static void UI_Crosshair_Ownerdraw( void *self )
 		w = item->generic.width, // width
 		h = item->generic.height, // height
 		// delta distance
-		d = (item->generic.width / 2 - l) * 0.5,
+		d = (item->generic.width / static_cast<double>(2) - l) * 0.5,
 		// alpha
 		a = 180,
 		// red
@@ -388,13 +388,13 @@ static void UI_Crosshair_Ownerdraw( void *self )
 		{
 			PIC_Set(uiPlayerSetup.uiWhite, r, g, b, a);
 			for (int i = 0; i < count; i++)
-				PIC_DrawTrans(x + w / 2 + radius * cos(2 * M_PI / count * i), y + h / 2 + radius * sin(2 * M_PI / count * i), 1, 1);
+				PIC_DrawTrans(x + w / static_cast<double>(2) + radius * cos(2 * M_PI / count * i), y + h / static_cast<double>(2) + radius * sin(2 * M_PI / count * i), 1, 1);
 		}
 		else
 		{
 			PIC_Set(uiPlayerSetup.uiWhite, r, g, b, a);
 			for (int i = 0; i < count; i++)
-				PIC_DrawAdditive(x + w / 2 + radius * cos(2 * M_PI / count * i), y + h / 2 + radius * sin(2 * M_PI / count * i), 1, 1);
+				PIC_DrawAdditive(x + w / static_cast<double>(2) + radius * cos(2 * M_PI / count * i), y + h / static_cast<double>(2) + radius * sin(2 * M_PI / count * i), 1, 1);
 		}
 	}
 

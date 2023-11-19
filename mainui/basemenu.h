@@ -105,7 +105,6 @@ typedef enum
 	QMTYPE_FIELD,
 	QMTYPE_ACTION,
 	QMTYPE_BITMAP,
-	// CR: ����� ��� ������
 	QMTYPE_BM_BUTTON
 } menuType_t;
 

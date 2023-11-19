@@ -107,33 +107,30 @@ static void UI_Background_Ownerdraw( void *self )
 	if (uiStatic.m_fHaveSteamBackground || uiStatic.m_fDisableLogo)
 		return; // no logos for steam background
 
-	if( GetLogoLength() <= 0.05f || GetLogoWidth() <= 32 )
+	if( GetLogoLength() <= 0.10f || GetLogoWidth() <= 32 )
 		return;	// don't draw stub logo (GoldSrc rules)
 
 	float	logoWidth, logoHeight, logoPosY;
 	float	scaleX, scaleY;
 
-	scaleX = ScreenWidth / 640.0f;
-	scaleY = ScreenHeight / 480.0f;
+	scaleX = ScreenWidth / 1920.0f;
+	scaleY = ScreenHeight / 1080.0f;
 
 	logoWidth = GetLogoWidth() * scaleX;
 	logoHeight = GetLogoHeight() * scaleY;
-	logoPosY = 70 * scaleY;	// 70 it's empirically determined value (magic number)
+	logoPosY = 80 * scaleY;	// 70 it's empirically determined value (magic number)
 
 	DRAW_LOGO( "logo.mp4", 0, logoPosY, logoWidth, logoHeight );
 }
 
 static void UI_QuitDialog( void )
 {
-	// toggle main menu between active\inactive
-	// show\hide quit dialog
 	uiMain.console.generic.flags ^= QMF_INACTIVE;
 	uiMain.resumeGame.generic.flags ^= QMF_INACTIVE;
 	uiMain.disconnect.generic.flags ^= QMF_INACTIVE;
 	uiMain.newGame.generic.flags ^= QMF_INACTIVE;
 	uiMain.configuration.generic.flags ^= QMF_INACTIVE;
 	uiMain.multiPlayer.generic.flags ^= QMF_INACTIVE;
-	uiMain.credits.generic.flags ^= QMF_INACTIVE;
 	uiMain.quit.generic.flags ^= QMF_INACTIVE;
 	uiMain.minimizeBtn.generic.flags ^= QMF_INACTIVE;
 	uiMain.quitButton.generic.flags ^= QMF_INACTIVE;
@@ -155,7 +152,6 @@ static void UI_PromptDialog( void )
 	uiMain.newGame.generic.flags ^= QMF_INACTIVE;
 	uiMain.configuration.generic.flags ^= QMF_INACTIVE;
 	uiMain.multiPlayer.generic.flags ^= QMF_INACTIVE;
-	uiMain.credits.generic.flags ^= QMF_INACTIVE;
 	uiMain.quit.generic.flags ^= QMF_INACTIVE;
 	uiMain.minimizeBtn.generic.flags ^= QMF_INACTIVE;
 	uiMain.quitButton.generic.flags ^= QMF_INACTIVE;
@@ -293,9 +289,6 @@ static void UI_Main_Callback( void *self, int event )
 	case ID_CONFIGURATION:
 		UI_Options_Menu();
 		break;
-	case ID_PREVIEWS:
-		UI_Credits_Menu();
-		break;
 	case ID_QUIT:
 	case ID_QUIT_BUTTON:
 		UI_QuitDialog();
@@ -331,7 +324,7 @@ static void UI_Main_Init( void )
 	memset( &uiMain, 0, sizeof( uiMain_t ));
 
 	// precache .avi file and get logo width and height
-	PRECACHE_LOGO( "logo.avi" );
+	PRECACHE_LOGO( "logo.mp4" );
 
 	uiMain.menu.vidInitFunc = UI_Main_Init;
 	uiMain.menu.keyFunc = UI_Main_KeyFunc;
@@ -362,8 +355,8 @@ static void UI_Main_Init( void )
 	uiMain.resumeGame.generic.name = "Resume game";
 	uiMain.resumeGame.generic.flags = QMF_HIGHLIGHTIFFOCUS|QMF_DROPSHADOW|QMF_NOTIFY;
 	uiMain.resumeGame.generic.statusText = MenuStrings[HINT_RESUME_GAME];
-	uiMain.resumeGame.generic.x = 72;
-	uiMain.resumeGame.generic.y = 330;
+	uiMain.resumeGame.generic.x = 32;
+	uiMain.resumeGame.generic.y = 420;
 	uiMain.resumeGame.generic.callback = UI_Main_Callback;
 
 	UI_UtilSetupPicButton( &uiMain.resumeGame, PC_RESUME_GAME );
@@ -373,8 +366,8 @@ static void UI_Main_Init( void )
 	uiMain.disconnect.generic.name = "Disconnect";
 	uiMain.disconnect.generic.flags = QMF_HIGHLIGHTIFFOCUS|QMF_DROPSHADOW|QMF_NOTIFY;
 	uiMain.disconnect.generic.statusText = "Disconnect from server";
-	uiMain.disconnect.generic.x = 72;
-	uiMain.disconnect.generic.y = 380;
+	uiMain.disconnect.generic.x = 32;
+	uiMain.disconnect.generic.y = 480;
 	uiMain.disconnect.generic.callback = UI_Main_Callback;
 
 	UI_UtilSetupPicButton( &uiMain.disconnect, PC_DISCONNECT );
@@ -384,8 +377,8 @@ static void UI_Main_Init( void )
 	uiMain.newGame.generic.name = "Create game";
 	uiMain.newGame.generic.flags = QMF_HIGHLIGHTIFFOCUS|QMF_DROPSHADOW|QMF_NOTIFY;
 	uiMain.newGame.generic.statusText = "Starting game";
-	uiMain.newGame.generic.x = 72;
-	uiMain.newGame.generic.y = 430;
+	uiMain.newGame.generic.x = 32;
+	uiMain.newGame.generic.y = 530;
 	uiMain.newGame.generic.callback = UI_Main_Callback;
 
 	UI_UtilSetupPicButton( &uiMain.newGame, PC_CREATE_GAME );
@@ -401,8 +394,8 @@ static void UI_Main_Init( void )
 	uiMain.configuration.generic.flags = QMF_HIGHLIGHTIFFOCUS|QMF_DROPSHADOW|QMF_NOTIFY;
 	uiMain.configuration.generic.name = "Configuration";
 	uiMain.configuration.generic.statusText = MenuStrings[HINT_CONFIGURATION];
-	uiMain.configuration.generic.x = 72;
-	uiMain.configuration.generic.y = 480;
+	uiMain.configuration.generic.x = 32;
+	uiMain.configuration.generic.y = 630;//580;
 	uiMain.configuration.generic.callback = UI_Main_Callback;
 
 	UI_UtilSetupPicButton( &uiMain.configuration, PC_CONFIG );
@@ -412,30 +405,19 @@ static void UI_Main_Init( void )
 	uiMain.multiPlayer.generic.flags = QMF_HIGHLIGHTIFFOCUS|QMF_DROPSHADOW|QMF_NOTIFY;
 	uiMain.multiPlayer.generic.name = "Multiplayer";
 	uiMain.multiPlayer.generic.statusText = MenuStrings[HINT_MULTIPLAYER];
-	uiMain.multiPlayer.generic.x = 72;
-	uiMain.multiPlayer.generic.y = 530;
+	uiMain.multiPlayer.generic.x = 32;
+	uiMain.multiPlayer.generic.y = 580;//630;
 	uiMain.multiPlayer.generic.callback = UI_Main_Callback;
 
 	UI_UtilSetupPicButton( &uiMain.multiPlayer, PC_MULTIPLAYER );
-
-	uiMain.credits.generic.id = ID_PREVIEWS;
-	uiMain.credits.generic.type = QMTYPE_BM_BUTTON;
-	uiMain.credits.generic.flags = QMF_HIGHLIGHTIFFOCUS|QMF_DROPSHADOW|QMF_NOTIFY;
-	uiMain.credits.generic.name = "Credits";
-	uiMain.credits.generic.statusText = "Developer credits";
-	uiMain.credits.generic.x = 72;
-	uiMain.credits.generic.y = 580;
-	uiMain.credits.generic.callback = UI_Main_Callback;
-
-	UI_UtilSetupPicButton( &uiMain.credits, PC_VIEW_README );
 
 	uiMain.quit.generic.id = ID_QUIT;
 	uiMain.quit.generic.type = QMTYPE_BM_BUTTON;
 	uiMain.quit.generic.flags = QMF_HIGHLIGHTIFFOCUS|QMF_DROPSHADOW|QMF_NOTIFY;
 	uiMain.quit.generic.name = "Quit";
 	uiMain.quit.generic.statusText = MenuStrings[HINT_QUIT_BUTTON];
-	uiMain.quit.generic.x = 72;
-	uiMain.quit.generic.y = 630;
+	uiMain.quit.generic.x = 32;
+	uiMain.quit.generic.y = 680;
 	uiMain.quit.generic.callback = UI_Main_Callback;
 
 	UI_UtilSetupPicButton( &uiMain.quit, PC_QUIT );
@@ -529,7 +511,6 @@ static void UI_Main_Init( void )
 	UI_AddItem( &uiMain.menu, (void *)&uiMain.newGame );
 	UI_AddItem( &uiMain.menu, (void *)&uiMain.configuration );
 	UI_AddItem( &uiMain.menu, (void *)&uiMain.multiPlayer );
-	UI_AddItem( &uiMain.menu, (void *)&uiMain.credits );
 	UI_AddItem( &uiMain.menu, (void *)&uiMain.quit );
 	UI_AddItem( &uiMain.menu, (void *)&uiMain.minimizeBtn );
 	UI_AddItem( &uiMain.menu, (void *)&uiMain.quitButton );

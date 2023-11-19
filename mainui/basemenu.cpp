@@ -465,7 +465,7 @@ void UI_LoadBackgroundImage( void )
 		if( g_engfuncs.pfnFileExists( "gfx/shell/splash.bmp", TRUE ))
 		{
 			// if we doesn't have logo.avi in gamedir we don't want to draw it
-			if (!g_engfuncs.pfnFileExists("media/valve.avi", TRUE));
+			if (!g_engfuncs.pfnFileExists("media/lodo.mp4", TRUE));
 				//uiStatic.m_fDisableLogo = TRUE;
 		}
 	}
