@@ -465,7 +465,7 @@ void UI_LoadBackgroundImage( void )
 		if( g_engfuncs.pfnFileExists( "gfx/shell/splash.bmp", TRUE ))
 		{
 			// if we doesn't have logo.avi in gamedir we don't want to draw it
-			if (!g_engfuncs.pfnFileExists("media/lodo.mp4", TRUE));
+			if (!g_engfuncs.pfnFileExists("media/logo.mp4", TRUE));
 				//uiStatic.m_fDisableLogo = TRUE;
 		}
 	}
@@ -1564,34 +1564,34 @@ void UI_ApplyCustomColors( void )
 	FREE_FILE( afile );
 }
 
-static void UI_LoadBackgroundMapList( void )
+static void UI_LoadBackgroundMapList(void)
 {
-	if( !g_engfuncs.pfnFileExists( "scripts/chapterbackgrounds.txt", TRUE ))
+	if (!g_engfuncs.pfnFileExists("media/back.json", TRUE))
 		return;
 
-	char *afile = (char *)LOAD_FILE( "scripts/chapterbackgrounds.txt", NULL );
-	char *pfile = afile;
+	char* afile = (char*)LOAD_FILE("media/back.json", NULL);
+	char* pfile = afile;
 	char token[1024];
 
 	uiStatic.bgmapcount = 0;
 
-	if( !afile )
+	if (!afile)
 	{
-		Con_Printf( "UI_LoadBackgroundMapList: chapterbackgrounds.txt not found\n" );
+		Con_Printf("UI_LoadBackgroundMapList: back.json not found\n");
 		return;
 	}
 
-	while(( pfile = COM_ParseFile( pfile, token )) != NULL )
+	while ((pfile = COM_ParseFile(pfile, token)) != NULL)
 	{
 		// skip the numbers (old format list)
-		if( isdigit( token[0] )) continue;
+		if (isdigit(token[0])) continue;
 
-		strncpy( uiStatic.bgmaps[uiStatic.bgmapcount], token, sizeof( uiStatic.bgmaps[0] ));
-		if( ++uiStatic.bgmapcount > UI_MAX_BGMAPS )
+		strncpy(uiStatic.bgmaps[uiStatic.bgmapcount], token, sizeof(uiStatic.bgmaps[0]));
+		if (++uiStatic.bgmapcount > UI_MAX_BGMAPS)
 			break; // list is full
 	}
 
-	FREE_FILE( afile );
+	FREE_FILE(afile);
 }
 
 /*
