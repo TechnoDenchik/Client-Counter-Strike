@@ -156,8 +156,6 @@
 
 #include "player/player_const.h"
 
-#include "player/player_zombie.h"
-
 struct WeaponStruct
 {
 	int m_type;

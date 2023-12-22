@@ -285,7 +285,7 @@ static void UI_Controls_ResetKeysList( void )
 
 	while(( pfile = COM_ParseFile( pfile, token )) != NULL )
 	{
-		char	key[32];
+		char	key[128];
 
 		strncpy( key, token, sizeof( key ));
 
@@ -524,7 +524,7 @@ static void UI_Controls_Init( void )
 	uiControls.hintMessage.generic.id = ID_TABLEHINT;
 	uiControls.hintMessage.generic.type = QMTYPE_ACTION;
 	uiControls.hintMessage.generic.flags = QMF_INACTIVE|QMF_SMALLFONT;
-	uiControls.hintMessage.generic.color = uiColorHelp;
+	uiControls.hintMessage.generic.color = uiColorWhite;
 	uiControls.hintMessage.generic.name = uiControls.hintText;
 	uiControls.hintMessage.generic.x = 360;
 	uiControls.hintMessage.generic.y = 225;
@@ -545,18 +545,18 @@ static void UI_Controls_Init( void )
 	uiControls.msgBox1.generic.flags = QMF_INACTIVE|QMF_HIDDEN;
 	uiControls.msgBox1.generic.ownerdraw = UI_MsgBox_Ownerdraw; // just a fill rectangle
 	uiControls.msgBox1.generic.x = DLG_X + 192;
-	uiControls.msgBox1.generic.y = 256;
-	uiControls.msgBox1.generic.width = 640;
-	uiControls.msgBox1.generic.height = 128;
+	uiControls.msgBox1.generic.y = 250;
+	uiControls.msgBox1.generic.width = 630;
+	uiControls.msgBox1.generic.height = 250;
 
 	uiControls.msgBox2.generic.id = ID_MSGBOX2;
 	uiControls.msgBox2.generic.type = QMTYPE_ACTION;
 	uiControls.msgBox2.generic.flags = QMF_INACTIVE|QMF_HIDDEN;
 	uiControls.msgBox2.generic.ownerdraw = UI_MsgBox_Ownerdraw; // just a fill rectangle
 	uiControls.msgBox2.generic.x = DLG_X + 192;
-	uiControls.msgBox2.generic.y = 256;
-	uiControls.msgBox2.generic.width = 640;
-	uiControls.msgBox2.generic.height = 256;
+	uiControls.msgBox2.generic.y = 250;
+	uiControls.msgBox2.generic.width = 630;
+	uiControls.msgBox2.generic.height = 250;
 
 	uiControls.dlgMessage.generic.id = ID_MSGTEXT;
 	uiControls.dlgMessage.generic.type = QMTYPE_ACTION;

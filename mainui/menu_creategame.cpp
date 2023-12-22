@@ -482,7 +482,7 @@ static void UI_CreateGame_Init(void)
 	uiCreateGame.msgBox.generic.flags = QMF_INACTIVE | QMF_HIDDEN;
 	uiCreateGame.msgBox.generic.ownerdraw = UI_MsgBox_Ownerdraw; // just a fill rectangle
 	uiCreateGame.msgBox.generic.x = DLG_X + 192;
-	uiCreateGame.msgBox.generic.y = 260;
+	uiCreateGame.msgBox.generic.y = 250;
 	uiCreateGame.msgBox.generic.width = 630;
 	uiCreateGame.msgBox.generic.height = 250;
 
