@@ -88,7 +88,7 @@ void PlayLockSounds (entvars_t *pev, locksound_t *pls, int flocked, int fbutton)
 
 	if (flocked)
 	{
-		int fplaysound = (pls->sLockedSound && gpGlobals->time > pls->flwaitSound);
+		int fplaysound = (pls->sLockedSound & gpGlobals->time > pls->flwaitSound);
 		int fplaysentence = (pls->sLockedSentence && !pls->bEOFLocked && gpGlobals->time > pls->flwaitSentence);
 		float fvol;
 
@@ -123,7 +123,7 @@ void PlayLockSounds (entvars_t *pev, locksound_t *pls, int flocked, int fbutton)
 	{
 		// UNLOCKED SOUND
 
-		int fplaysound = (pls->sUnlockedSound && gpGlobals->time > pls->flwaitSound);
+		int fplaysound = (pls->sUnlockedSound & gpGlobals->time > pls->flwaitSound);
 		int fplaysentence = (pls->sUnlockedSentence && !pls->bEOFUnlocked && gpGlobals->time > pls->flwaitSentence);
 		float fvol;
 
@@ -938,10 +938,13 @@ void CRotDoor::Spawn ()
 	}
 
 	//m_flWait = 2; who the hell did this? (sjb)
-	m_vecAngle1 = pev->angles;
-	m_vecAngle2 = pev->angles + pev->movedir * m_flMoveDistance;
+	m_vecPosition1 = pev->origin;
 
-	assert (("rotating door start/end positions are equal", m_vecAngle1 != m_vecAngle2));
+	// Subtract 2 from size because the engine expands bboxes by 1 in all directions making the size too big
+	m_vecPosition2 = m_vecPosition1 + (pev->movedir * (fabs((float)(pev->movedir.x * (pev->size.x - 2))) +
+		fabs((float)(pev->movedir.y * (pev->size.y - 2))) +
+		fabs((float)(pev->movedir.z * (pev->size.z - 2))) - m_flLip));
+	assert("door start/end positions are equal" && (m_vecPosition1 != m_vecPosition2));
 
 	if (pev->spawnflags & SF_DOOR_PASSABLE)
 		pev->solid = SOLID_NOT;
@@ -963,7 +966,7 @@ void CRotDoor::Spawn ()
 		// swap pos1 and pos2, put door at pos2, invert movement direction
 		pev->angles = m_vecAngle2;
 
-		Vector vecSav = m_vecAngle1;
+		Vector const vecSav = m_vecAngle1;
 		m_vecAngle2 = m_vecAngle1;
 		m_vecAngle1 = vecSav;
 
