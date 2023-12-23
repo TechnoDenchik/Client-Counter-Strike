@@ -676,7 +676,7 @@ public:
 	CBasePlayer *FindNearbyPlayer();
 	void AdjustSafeTime();							// called when enemy seen to adjust safe time for this round
 	void EXPORT BotTouch(CBaseEntity *other);
-	bool HasAnyAmmo(CBasePlayerWeapon *weapon) const;
+	bool HasAnyAmmo  (CBasePlayerWeapon *weapon) const;
 
 private:
 	friend class CCSBotManager;

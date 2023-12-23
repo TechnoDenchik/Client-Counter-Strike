@@ -121,7 +121,7 @@ public:
 	bool m_isDangling;
 
 	/* <4c2dc0> ../game_shared/bot/nav_area.h:88 */
-	void OnDestroyNotify(CNavArea *dead)
+	void const OnDestroyNotify(CNavArea *dead)
 	{
 		if (dead == m_topForwardArea)
 			m_topForwardArea = NULL;
@@ -1074,7 +1074,7 @@ CNavArea *FindMinimumCostArea(CNavArea *startArea, CostFunctor &costFunc)
 		CNavArea *area;
 		float cost;
 	}
-	cheapAreaSet[NUM_CHEAP_AREAS];
+	cheapAreaSet[NUM_CHEAP_AREAS]{};
 	int cheapAreaSetCount = 0;
 
 	FOR_EACH_LL (TheNavAreaList, it)

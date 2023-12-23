@@ -88,8 +88,8 @@ void PlayLockSounds (entvars_t *pev, locksound_t *pls, int flocked, int fbutton)
 
 	if (flocked)
 	{
-		int fplaysound = (pls->sLockedSound & gpGlobals->time > pls->flwaitSound);
-		int fplaysentence = (pls->sLockedSentence && !pls->bEOFLocked && gpGlobals->time > pls->flwaitSentence);
+		int const fplaysound = (pls->sLockedSound & gpGlobals->time > pls->flwaitSound);
+		int const fplaysentence = (pls->sLockedSentence && !pls->bEOFLocked && gpGlobals->time > pls->flwaitSentence);
 		float fvol;
 
 		if (fplaysound && fplaysentence)
@@ -109,7 +109,7 @@ void PlayLockSounds (entvars_t *pev, locksound_t *pls, int flocked, int fbutton)
 		if (fplaysentence)
 		{
 			// play next 'door locked' sentence in group
-			int iprev = pls->iLockedSentence;
+			int const iprev = pls->iLockedSentence;
 
 			pls->iLockedSentence = SENTENCEG_PlaySequentialSz (ENT (pev), STRING (pls->sLockedSentence), 0.85, ATTN_NORM, 0, 100, pls->iLockedSentence, FALSE);
 			pls->iUnlockedSentence = 0;
@@ -123,8 +123,8 @@ void PlayLockSounds (entvars_t *pev, locksound_t *pls, int flocked, int fbutton)
 	{
 		// UNLOCKED SOUND
 
-		int fplaysound = (pls->sUnlockedSound & gpGlobals->time > pls->flwaitSound);
-		int fplaysentence = (pls->sUnlockedSentence && !pls->bEOFUnlocked && gpGlobals->time > pls->flwaitSentence);
+		int const fplaysound = (pls->sUnlockedSound & gpGlobals->time > pls->flwaitSound);
+		int const fplaysentence = (pls->sUnlockedSentence && !pls->bEOFUnlocked && gpGlobals->time > pls->flwaitSentence);
 		float fvol;
 
 		// if playing both sentence and sound, lower sound volume so we hear sentence
@@ -143,7 +143,7 @@ void PlayLockSounds (entvars_t *pev, locksound_t *pls, int flocked, int fbutton)
 		// play next 'door unlocked' sentence in group
 		if (fplaysentence)
 		{
-			int iprev = pls->iUnlockedSentence;
+			int const iprev = pls->iUnlockedSentence;
 
 			pls->iUnlockedSentence = SENTENCEG_PlaySequentialSz (ENT (pev), STRING (pls->sUnlockedSentence), 0.85, ATTN_NORM, 0, 100, pls->iUnlockedSentence, FALSE);
 			pls->iLockedSentence = 0;
@@ -466,7 +466,7 @@ void CBaseDoor::Precache ()
 
 void CBaseDoor::DoorTouch (CBaseEntity *pOther)
 {
-	entvars_t *pevToucher = pOther->pev;
+	entvars_t *const pevToucher = pOther->pev;
 
 	// Ignore touches by dead players
 	if (pevToucher->deadflag != DEAD_NO)
@@ -546,7 +546,7 @@ int CBaseDoor::DoorActivate ()
 void CBaseDoor::DoorGoUp ()
 {
 	entvars_t *pevActivator;
-	bool isReversing = (m_toggle_state == TS_GOING_DOWN);
+	bool const isReversing = (m_toggle_state == TS_GOING_DOWN);
 
 	// It could be going-down, if blocked.
 	assert (m_toggle_state == TS_AT_BOTTOM || m_toggle_state == TS_GOING_DOWN);
@@ -585,16 +585,16 @@ void CBaseDoor::DoorGoUp ()
 			// Y axis rotation, move away from the player
 			if (!(pev->spawnflags & SF_DOOR_ONEWAY) && pev->movedir.y)
 			{
-				Vector2D toActivator = pevActivator->origin.Make2D ();
+				Vector2D const toActivator = pevActivator->origin.Make2D ();
 
-				float loX = pev->mins.x + pev->origin.x;
-				float loY = pev->mins.y + pev->origin.y;
+				float const loX = pev->mins.x + pev->origin.x;
+				float const loY = pev->mins.y + pev->origin.y;
 
-				float hiX = pev->maxs.x + pev->origin.x;
-				float hiY = pev->maxs.y + pev->origin.y;
+				float const hiX = pev->maxs.x + pev->origin.x;
+				float const hiY = pev->maxs.y + pev->origin.y;
 
-				float momentArmX = toActivator.x - pev->origin.x;
-				float momentArmY = toActivator.y - pev->origin.y;
+				float const momentArmX = toActivator.x - pev->origin.x;
+				float const momentArmY = toActivator.y - pev->origin.y;
 
 				if (loX > toActivator.x)
 				{
@@ -703,7 +703,7 @@ void CBaseDoor::DoorHitTop ()
 
 void CBaseDoor::DoorGoDown ()
 {
-	bool isReversing = (m_toggle_state == TS_GOING_UP);
+	bool const isReversing = (m_toggle_state == TS_GOING_UP);
 
 	if (!isReversing)
 	{
@@ -913,7 +913,7 @@ void CRotDoor::Restart ()
 	{
 		pev->angles = m_vecAngle2;
 
-		Vector vecSav = m_vecAngle1;
+		Vector const vecSav = m_vecAngle1;
 		m_vecAngle2 = m_vecAngle1;
 		m_vecAngle1 = vecSav;
 
