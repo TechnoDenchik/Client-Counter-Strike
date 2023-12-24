@@ -92,17 +92,17 @@ typedef float vec_t;
 
 #ifdef __cplusplus
 
-inline unsigned long& FloatBits (vec_t& f ) noexcept
+inline unsigned long& FloatBits(vec_t& f)
 {
 	return *reinterpret_cast<unsigned long*>(&f);
 }
 
-inline unsigned long const& FloatBits (vec_t const& f) noexcept
+inline unsigned long const& FloatBits(vec_t const& f)
 {
 	return *reinterpret_cast<unsigned long const*>(&f);
 }
 
-inline vec_t BitsToFloat(unsigned long i) noexcept
+inline vec_t BitsToFloat(unsigned long i)
 {
 	return *reinterpret_cast<vec_t*>(&i);
 }
@@ -139,7 +139,7 @@ extern "C"
 #pragma intrinsic( fabs )
 // Also, alias float make positive to use fabs, too
 // NOTE:  Is there a perf issue with double<->float conversion?
-inline float FloatMakePositive(vec_t f) noexcept
+inline float FloatMakePositive(vec_t f)
 {
 	return fabs(f);
 }
