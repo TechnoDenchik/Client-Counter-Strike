@@ -25,16 +25,16 @@ extern cl_enginefunc_t gEngfuncs;
 
 //-------------------------------------------------- Constants
 
-#define CAM_DIST_DELTA 1.0
-#define CAM_ANGLE_DELTA 2.5
-#define CAM_ANGLE_SPEED 2.5
-#define CAM_MIN_DIST 30.0
-#define CAM_ANGLE_MOVE .5
-#define MAX_ANGLE_DIFF 10.0
-#define PITCH_MAX 90.0
-#define PITCH_MIN 0
-#define YAW_MAX  135.0
-#define YAW_MIN	 -135.0
+constexpr auto CAM_DIST_DELTA = 1.0;
+constexpr auto CAM_ANGLE_DELTA = 2.5;
+constexpr auto CAM_ANGLE_SPEED = 2.5;
+constexpr auto CAM_MIN_DIST = 30.0;
+constexpr auto CAM_ANGLE_MOVE = .5;
+constexpr auto MAX_ANGLE_DIFF = 10.0;
+constexpr auto PITCH_MAX = 90.0;
+constexpr auto PITCH_MIN = 0;
+constexpr auto YAW_MAX = 135.0;
+constexpr auto YAW_MIN = -135.0;
 
 enum ECAM_Command
 {
@@ -188,7 +188,7 @@ void DLLEXPORT CAM_Think( void )
 			//if ((camAngles[YAW]>=225.0)||(camAngles[YAW]<135.0))
 			if (camAngles[YAW]<c_maxyaw->value)
 			{
-				camAngles[ YAW ] += (CAM_ANGLE_MOVE)*((cam_mouse.x-gEngfuncs.GetWindowCenterX())/2);
+				camAngles[YAW] += (CAM_ANGLE_MOVE) * ((static_cast<double>(cam_mouse.x) - gEngfuncs.GetWindowCenterX()) / 2);
 			}
 			if (camAngles[YAW]>c_maxyaw->value)
 			{
@@ -218,7 +218,7 @@ void DLLEXPORT CAM_Think( void )
 		{
 			if(camAngles[PITCH]<c_maxpitch->value)
 			{
-			    camAngles[PITCH] +=(CAM_ANGLE_MOVE)* ((cam_mouse.y-gEngfuncs.GetWindowCenterY())/2);
+				camAngles[PITCH] += (CAM_ANGLE_MOVE) * ((static_cast<double>(cam_mouse.y) - gEngfuncs.GetWindowCenterY()) / 2);
 			}
 			if (camAngles[PITCH]>c_maxpitch->value)
 			{
@@ -286,7 +286,7 @@ void DLLEXPORT CAM_Think( void )
 		{
 			if(dist<c_maxdistance->value)
 			{
-			    dist +=CAM_DIST_DELTA * ((cam_mouse.y-gEngfuncs.GetWindowCenterY())/2);
+				dist += CAM_DIST_DELTA * ((static_cast<double>(cam_mouse.y) - gEngfuncs.GetWindowCenterY()) / 2);
 			}
 			if (dist>c_maxdistance->value)
 			{
@@ -549,7 +549,7 @@ void CAM_EndDistance(void)
 
 int DLLEXPORT CL_IsThirdPerson( void )
 {
-	return (cam_thirdperson ? 1 : 0) || (g_iUser1 && gEngfuncs.GetLocalPlayer() && (g_iUser2 == gEngfuncs.GetLocalPlayer()->index) );
+	return (cam_thirdperson ? 1 : 0) | (g_iUser1 && gEngfuncs.GetLocalPlayer() && (g_iUser2 == gEngfuncs.GetLocalPlayer()->index));
 }
 
 void DLLEXPORT CL_CameraOffset( float *ofs )

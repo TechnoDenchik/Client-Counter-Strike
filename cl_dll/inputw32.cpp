@@ -25,7 +25,7 @@
 #include "view.h"
 #include "port.h"
 
-#define MOUSE_BUTTON_COUNT 5
+constexpr auto MOUSE_BUTTON_COUNT = 5;
 
 // Set this to 1 to show mouse cursor.  Experimental
 int	g_iVisibleMouse = 0;
@@ -81,15 +81,15 @@ static int	mouseshowtoggle = 1;
 
 // joystick defines and variables
 // where should defines be moved?
-#define JOY_ABSOLUTE_AXIS	0x00000000		// control like a joystick
-#define JOY_RELATIVE_AXIS	0x00000010		// control like a mouse, spinner, trackball
-#define	JOY_MAX_AXES		6				// X, Y, Z, R, U, V
-#define JOY_AXIS_X			0
-#define JOY_AXIS_Y			1
-#define JOY_AXIS_Z			2
-#define JOY_AXIS_R			3
-#define JOY_AXIS_U			4
-#define JOY_AXIS_V			5
+constexpr auto JOY_ABSOLUTE_AXIS = 0x00000000;	// control like a joystick;
+constexpr auto JOY_RELATIVE_AXIS = 0x00000010;		// control like a mouse, spinner, trackball;
+constexpr auto	JOY_MAX_AXES = 6;				// X, Y, Z, R, U, V
+constexpr auto JOY_AXIS_X = 0;
+constexpr auto JOY_AXIS_Y = 1;
+constexpr auto JOY_AXIS_Z = 2;
+constexpr auto JOY_AXIS_R = 3;
+constexpr auto JOY_AXIS_U = 4;
+constexpr auto JOY_AXIS_V = 5;
 
 enum _ControlList
 {
@@ -448,7 +448,7 @@ void IN_StartupJoystick (void)
 { 
 	int			numdevs;
 	JOYCAPS		jc;
-	MMRESULT	mmr;
+	MMRESULT	mmr{};
  
  	// assume no joystick
 	joy_avail = 0; 

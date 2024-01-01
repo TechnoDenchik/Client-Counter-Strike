@@ -36,7 +36,7 @@ Write some data to the demo stream
 void Demo_WriteBuffer( int type, int size, unsigned char *buffer )
 {
 	int pos = 0;
-	unsigned char buf[ 32 * 1024 ];
+	unsigned char buf[32 * 1024]{};
 	*( int * )&buf[pos] = type;
 	pos+=sizeof( int );
 

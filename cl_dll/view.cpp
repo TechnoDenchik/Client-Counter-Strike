@@ -70,8 +70,8 @@ extern cvar_t	*chase_active;
 extern cvar_t	*scr_ofsx, *scr_ofsy, *scr_ofsz;
 extern cvar_t	*cl_vsmoothing;
 
-#define	CAM_MODE_RELAX		1
-#define CAM_MODE_FOCUS		2
+constexpr auto CAM_MODE_RELAX = 1;
+constexpr auto CAM_MODE_FOCUS = 2;
 
 vec3_t v_origin, v_angles, v_cl_angles, v_sim_org, v_lastAngles, ev_punchangle;
 Vector dead_viewangles( 0, 0, 0 ); // fake viewangles, for fixing
@@ -108,7 +108,7 @@ float	v_idlescale;  // used by TFC for concussion grenade effect
 #ifdef XASH_64BIT
 #define BAD_ENT_PTR 0xFFFFFFFFFFFFFFFF
 #else
-#define BAD_ENT_PTR 0xFFFFFFFF
+constexpr auto BAD_ENT_PTR = 0xFFFFFFFF;
 #endif
 
 
@@ -478,7 +478,7 @@ void V_CalcIntermissionRefdef ( struct ref_params_s *pparams )
 	v_angles = pparams->viewangles;
 }
 
-#define ORIGIN_BACKUP 64
+constexpr auto ORIGIN_BACKUP = 64;
 #define ORIGIN_MASK ( ORIGIN_BACKUP - 1 )
 
 struct viewinterp_t
@@ -977,7 +977,7 @@ void V_GetChaseOrigin( float * angles, float * origin, float distance, float * r
 
 void V_GetDeathCam(cl_entity_t * ent1, cl_entity_t * ent2, float * angle, float * origin)
 {
-	float newAngle[3];
+	float newAngle[3]{};
 	float newOrigin[3];
 	static vec3_t nonDestructedOrigin;
 	float distance = 168.0f;
@@ -1026,7 +1026,7 @@ void V_GetDeathCam(cl_entity_t * ent1, cl_entity_t * ent2, float * angle, float 
 
 void V_GetSingleTargetCam(cl_entity_t * ent1, float * angle, float * origin)
 {
-	float newAngle[3]; float newOrigin[3];
+	float newAngle[3]{}; float newOrigin[3]{};
 
 	int flags 	   = gHUD.m_Spectator.m_iObserverFlags;
 
@@ -1119,7 +1119,7 @@ float MaxAngleBetweenAngles(  float * a1, float * a2 )
 
 void V_GetDoubleTargetsCam(cl_entity_t	 * ent1, cl_entity_t * ent2,float * angle, float * origin)
 {
-	float newAngle[3]; float newOrigin[3]; float tempVec[3];
+	float newAngle[3]{}; float newOrigin[3]{}; float tempVec[3]{};
 
 	int flags 	   = gHUD.m_Spectator.m_iObserverFlags;
 
@@ -1228,7 +1228,7 @@ void V_GetDirectedChasePosition(cl_entity_t	 * ent1, cl_entity_t * ent2,float * 
 		// second target disappeard somehow (dead)
 
 		// keep last good viewangle
-		float newOrigin[3];
+		float newOrigin[3]{};
 
 		int flags 	   = gHUD.m_Spectator.m_iObserverFlags;
 

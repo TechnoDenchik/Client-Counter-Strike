@@ -100,7 +100,7 @@ float READ_FLOAT(void)
 		byte b[4];
 		float f;
 		int l;
-	} dat;
+	} dat{};
 	
 	dat.b[0] = gpBuf[giRead];
 	dat.b[1] = gpBuf[giRead+1];

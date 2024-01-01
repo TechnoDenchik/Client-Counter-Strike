@@ -928,20 +928,15 @@ void CRotDoor::Spawn ()
 {
 	Precache ();
 
-	// set the axis of rotation
 	CBaseToggle::AxisDir (pev);
 
-	// check for clockwise rotation
 	if (pev->spawnflags & SF_DOOR_ROTATE_BACKWARDS)
 	{
 		pev->movedir = pev->movedir * -1;
 	}
 
-	//m_flWait = 2; who the hell did this? (sjb)
 	m_vecAngle1 = pev->angles;
 	m_vecAngle2 = pev->angles + pev->movedir * m_flMoveDistance;
-
-	assert (("rotating door start/end positions are equal", m_vecAngle1 != m_vecAngle2));
 
 	if (pev->spawnflags & SF_DOOR_PASSABLE)
 		pev->solid = SOLID_NOT;
@@ -956,8 +951,6 @@ void CRotDoor::Spawn ()
 	if (pev->speed == 0)
 		pev->speed = 100;
 
-	// DOOR_START_OPEN is to allow an entity to be lighted in the closed position
-	// but spawn in the open position
 	if (pev->spawnflags & SF_DOOR_START_OPEN)
 	{
 		// swap pos1 and pos2, put door at pos2, invert movement direction
@@ -978,7 +971,6 @@ void CRotDoor::Spawn ()
 	}
 	else
 	{
-		// touchable button
 		SetTouch (&CRotDoor::DoorTouch);
 	}
 }

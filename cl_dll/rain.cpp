@@ -32,19 +32,19 @@ extern "C"
 #include <new>
 
 
-#define DRIPSPEED    900		// speed of raindrips (pixel per secs)
-#define SNOWSPEED    200		// speed of snowflakes
-#define SNOWFADEDIST 80
+constexpr auto DRIPSPEED = 900;		// speed of raindrips (pixel per secs);
+constexpr auto SNOWSPEED = 200;	// speed of snowflakes;
+constexpr auto SNOWFADEDIST = 80;
 
-#define MAXDRIPS 2000	// max raindrops
-#define MAXFX    3000	// max effects
+constexpr auto MAXDRIPS = 2000;	// max raindrops;
+constexpr auto MAXFX = 3000;	// max effects;
 
-#define DRIP_SPRITE_HALFHEIGHT 64
-#define DRIP_SPRITE_HALFWIDTH  1
-#define SNOW_SPRITE_HALFSIZE   3
+constexpr auto DRIP_SPRITE_HALFHEIGHT = 64;
+constexpr auto DRIP_SPRITE_HALFWIDTH = 1;
+constexpr auto SNOW_SPRITE_HALFSIZE = 3;
 
 // radius water rings
-#define MAXRINGHALFSIZE	25
+constexpr auto MAXRINGHALFSIZE = 25;
 
 struct
 {

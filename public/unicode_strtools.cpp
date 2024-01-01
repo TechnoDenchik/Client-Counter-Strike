@@ -115,8 +115,8 @@ int Q_UnicodeConvertT(const T_IN *pIn, T_OUT *pOut, int nOutBytes, EStringConver
 
 		while (*pIn)
 		{
-			bool bErr;
-			uchar32 uVal;
+			bool bErr = false;
+			uchar32 uVal = 0;
 			pIn += IN_TO_UCHAR32(pIn, uVal, bErr);
 			int nOutElems = UCHAR32_TO_OUT_LEN(uVal);
 			if (nOutElems + nOut > nMaxOut)
@@ -143,8 +143,8 @@ int Q_UnicodeConvertT(const T_IN *pIn, T_OUT *pOut, int nOutBytes, EStringConver
 	{
 		while (*pIn)
 		{
-			bool bErr;
-			uchar32 uVal;
+			bool bErr = false;
+			uchar32 uVal = 0;
 			pIn += IN_TO_UCHAR32(pIn, uVal, bErr);
 			int nOutElems = UCHAR32_TO_OUT_LEN(uVal);
 			if (bErr)

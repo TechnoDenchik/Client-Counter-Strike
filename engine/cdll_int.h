@@ -29,7 +29,7 @@ extern "C" {
 #include "const.h"
 #include <stdint.h>
 
-#define MAX_ALIAS_NAME	32
+constexpr auto MAX_ALIAS_NAME = 32;
 
 typedef struct cmdalias_s
 {
@@ -46,8 +46,8 @@ typedef int (*pfnUserMsgHook)( const char *pszName, int iSize, void *pbuf );
 
 #include "wrect.h"
 
-#define SCRINFO_SCREENFLASH	1
-#define SCRINFO_STRETCHED	2
+constexpr auto SCRINFO_SCREENFLASH = 1;
+constexpr auto SCRINFO_STRETCHED = 2;
 
 typedef struct SCREENINFO_s
 {
@@ -303,7 +303,7 @@ typedef struct cl_enginefuncs_s
 	void		(*pfnVguiWrap2_GetMouseDelta)( int *x, int *y );
 } cl_enginefunc_t;
 
-#define CLDLL_INTERFACE_VERSION	7
+constexpr auto CLDLL_INTERFACE_VERSION = 7;
 
 #ifdef __cplusplus
 }

@@ -114,7 +114,7 @@ int CalcScreen(const float in[3], float out[2])
 	if (gHUD.m_iFOV == 0.0)
 		return false;
 
-	num = (((ScreenWidth / 2) / newaim[0]) * (120.0 / gHUD.m_iFOV - 1.0 / 3.0));
+	num = (((ScreenWidth / static_cast<float>(2)) / newaim[0]) * (120.0 / gHUD.m_iFOV - 1.0 / 3.0));
 	out[0] = (ScreenWidth / 2) - num * newaim[1];
 	out[1] = (ScreenHeight / 2) - num * newaim[2];
 
