@@ -75,7 +75,7 @@ UI_Audio_GetConfig
 static void UI_Audio_GetConfig( void )
 {
 	uiAudio.soundVolume.curValue = CVAR_GET_FLOAT( "volume" );
-	uiAudio.musicVolume.curValue = CVAR_GET_FLOAT( "musicvolume" );
+	uiAudio.musicVolume.curValue = CVAR_GET_FLOAT( "MP3Volume" );
 	uiAudio.suitVolume.curValue = CVAR_GET_FLOAT( "suitvolume" );
 	uiAudio.vibration.curValue = ( CVAR_GET_FLOAT( "vibration_length" ) - 0.1 ) / 4.9;
 
@@ -105,7 +105,7 @@ UI_Audio_SetConfig
 static void UI_Audio_SetConfig( void )
 {
 	CVAR_SET_FLOAT( "volume", uiAudio.soundVolume.curValue );
-	CVAR_SET_FLOAT( "musicvolume", uiAudio.musicVolume.curValue );
+	CVAR_SET_FLOAT( "MP3Volume", uiAudio.musicVolume.curValue );
 	CVAR_SET_FLOAT( "suitvolume", uiAudio.suitVolume.curValue );
 	CVAR_SET_FLOAT( "vibration_length",  0.1 + uiAudio.vibration.curValue * 4.9 );
 	CVAR_SET_FLOAT( "s_lerping", uiAudio.lerping.enabled );
