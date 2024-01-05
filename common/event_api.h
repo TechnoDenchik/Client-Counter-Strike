@@ -20,7 +20,7 @@
 #endif /* not __MINGW32__ */
 #endif
 
-constexpr auto EVENT_API_VERSION = 1;
+#define EVENT_API_VERSION 1
 
 typedef struct event_api_s
 {

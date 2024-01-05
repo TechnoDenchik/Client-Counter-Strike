@@ -1083,7 +1083,7 @@ qboolean UI_LoadProgs( void )
 	// setup globals
 	menu.globals = &gpGlobals;
 #ifdef XASH_INTERNAL_GAMELIBS
-	if(!( menu.hInstance = Com_LoadLibrary( "menu", false )))
+	if(!( menu.hInstance = Com_LoadLibrary( "interface", false )))
 		return false;
 #else
 	if(!( menu.hInstance = Com_LoadLibrary( va( "%s/" MENUDLL, GI->dll_path ), false )))

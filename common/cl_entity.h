@@ -62,7 +62,7 @@ typedef struct
 
 typedef struct cl_entity_s cl_entity_t;
 
-constexpr auto HISTORY_MAX = 64;  // Must be power of 2
+#define HISTORY_MAX		64  // Must be power of 2
 #define HISTORY_MASK	( HISTORY_MAX - 1 )
 
 

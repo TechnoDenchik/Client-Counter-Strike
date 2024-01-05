@@ -118,7 +118,7 @@ qboolean Sys_DebuggerPresent( void )
 	if( status_fd == -1 )
 		return 0;
 
-	ssize_t num_read = read( status_fd, buf, sizeof( buf ) );
+	size_t num_read = read( status_fd, buf, sizeof( buf ) - 1 );
 
 	if( num_read > 0 )
 	{
@@ -210,7 +210,7 @@ static qboolean Sys_DebuggerPresent(void)
 }
 
 #undef DEBUG_BREAK
-#ifdef __i386__
+#if defined(__i386__) || defined(__x86_64__)
 #define DEBUG_BREAK \
 	if( Sys_DebuggerPresent() ) { __asm__("int $3"); }
 #else

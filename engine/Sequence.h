@@ -3,8 +3,6 @@
 //		S c r i p t e d   S e q u e n c e s
 // 
 //---------------------------------------------------------------------------
-#include "extdll.h"
-
 #ifndef _INCLUDE_SEQUENCE_H_
 #define _INCLUDE_SEQUENCE_H_
 

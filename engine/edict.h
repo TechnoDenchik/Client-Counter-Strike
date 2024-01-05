@@ -16,7 +16,7 @@
 #ifndef EDICT_H
 #define EDICT_H
 
-constexpr auto MAX_ENT_LEAFS = 48;
+#define MAX_ENT_LEAFS	48
 
 #include "progdefs.h"
 

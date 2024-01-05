@@ -25,7 +25,11 @@ project(XASH_ENGINE C)
 set(XASH_ENGINE xash) # Lib name
 
 option(XASH_DEDICATED "Enable dedicated build. Servers must choose this." OFF) # Servers must choose this
-option(XASH_64BIT "Enable experimental 64-bit build. Note that you must also provide 64-bit game binaries" OFF)
+if(CMAKE_SIZEOF_VOID_P MATCHES "8")
+	option(XASH_64BIT "Enable experimental 64-bit build. Note that you must also provide 64-bit game binaries" ON)
+else()
+	option(XASH_64BIT "Enable experimental 64-bit build. Note that you must also provide 64-bit game binaries" OFF)
+endif()
 option(XASH_GLES   "Enable if Xash3D is running over GL to GLES translator." OFF)
 option(XASH_NANOGL "Use NanoGL(GLES1). Implicitly enables XASH_GLES." OFF)
 option(XASH_WES    "Use gl-wes-v2(GLES2). Implicitly enables XASH_GLES." OFF)
@@ -219,7 +223,6 @@ include_directories(
 	server/
 	../common
 	../pm_shared
-	../SDL2/include
 )
 
 if(XASH_NANOGL)
@@ -303,51 +306,21 @@ endif()
 
 
 if(XASH_SDL)
-
-	# /*
-	# ==============
-	# xash_link_sdl2
-	#
-	# Download and link SDL2, if supported
-	# ==============
-	# */
-
 	set(SDL2_BUILDING_EXECUTABLE ${XASH_SINGLE_BINARY}) # link sdl2main, if needed
-
-	find_library(SDL2																																																																																																																																																																																																																																																							LIBRARY
-		NAMES 
-			SDL2 SDL2.dll SDL2.lib
-		PATHS  
-			../SDL2/lib
-			../SDL2/lib/i386-linux-gnu
-			../SDL2/lib/x86
-			NO_DEFAULT_PATH
-	)
-
-	if(MINGW)
-		if(XASH_64BIT)
-			set(SDL2_SUBDIR "SDL2-${SDL2_VER}/x86_64-w64-mingw32")
-		else()
-			set(SDL2_SUBDIR "SDL2-${SDL2_VER}/i686-w64-mingw32")
-		endif()
-		set(SDL2_DLL "${SDL2_SUBDIR}/SDL2.dll")
-	endif()
-
+	find_package(SDL2 REQUIRED)
+	target_link_libraries(${XASH_ENGINE} ${SDL2_LIBRARY})
+	include_directories(${SDL2_INCLUDE_DIR})
 	add_definitions(-DXASH_SDL)
 	if(MSVC)
-
 		string(REGEX REPLACE "lib$" "dll" SDL2_DLL "${SDL2_LIBRARY}")
-		
 		install(FILES ${SDL2_DLL}
-			CONFIGURATIONS Debug
-			DESTINATION ${LIB_INSTALL_DIR}/Debug/)
+				CONFIGURATIONS Debug
+				DESTINATION ${LIB_INSTALL_DIR}/Debug/)
 		install(FILES ${SDL2_DLL}
-			CONFIGURATIONS Release
-			DESTINATION ${LIB_INSTALL_DIR}/Release/)
+				CONFIGURATIONS Release
+				DESTINATION ${LIB_INSTALL_DIR}/Release/)
 	endif()
-	target_link_libraries(${XASH_ENGINE} ${SDL2_LIBRARY})
-
-endif() #if(XASH_SDL)
+endif()
 
 if(XASH_GLES)
 	add_definitions(-DXASH_GLES -DXASH_GL_STATIC)
@@ -423,3 +396,8 @@ else()
 	endif()
 endif()
 
+install( TARGETS ${XASH_ENGINE} DESTINATION ${CMAKE_INSTALL_PREFIX})
+
+if(XASH_SDL)
+	install(FILES ${SDL2_DLL} DESTINATION ${CMAKE_INSTALL_PREFIX})
+endif()

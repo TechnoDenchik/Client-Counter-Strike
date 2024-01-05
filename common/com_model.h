@@ -23,23 +23,17 @@
 ==============================================================================
 */
 
-constexpr auto STUDIO_RENDER = 1;
-constexpr auto STUDIO_EVENTS = 2;
+#define STUDIO_RENDER 1
+#define STUDIO_EVENTS 2
 
-constexpr auto ZISCALE = ((float)0x8000);
+#define ZISCALE		((float)0x8000)
 
-#ifndef MAX_CLIENTS
-constexpr auto MAX_CLIENTS = 32;
-#endif
-//#define	MAX_EDICTS			900
+#define MAX_MODEL_NAME		64
 
-constexpr auto MAX_MODEL_NAME = 64;
-//#define MAX_MAP_HULLS		4
-
-constexpr auto MIPLEVELS = 4;
-constexpr auto VERTEXSIZE = 7;
-constexpr auto MAXLIGHTMAPS = 4;
-#define NUM_AMBIENTS  4	// automatic ambient sounds
+#define	MIPLEVELS			4
+#define VERTEXSIZE		7
+#define	MAXLIGHTMAPS		4
+#define	NUM_AMBIENTS		4		// automatic ambient sounds
 
 typedef enum
 {
@@ -358,8 +352,8 @@ typedef struct auxvert_s
 
 #include "custom.h"
 
-#define MAX_INFO_STRING 256
-constexpr auto MAX_SCOREBOARDNAME = 32;
+#define	MAX_INFO_STRING			256
+#define	MAX_SCOREBOARDNAME		32
 typedef struct player_info_s
 {
 	// User id on server

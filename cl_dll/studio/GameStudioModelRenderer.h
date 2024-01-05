@@ -20,6 +20,9 @@
 #pragma once
 #if !defined (GAMESTUDIOMODELRENDERER_H)
 #define GAMESTUDIOMODELRENDERER_H
+//#include ""
+
+#define MAX_CLIENTS 32
 
 enum BoneIndex
 {
