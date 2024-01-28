@@ -1,6 +1,12 @@
+﻿/* =================================================================================== *
+	     * =================== TechnoSoftware Developing =================== *
+ * =================================================================================== */
+
+#include "Counter-Strike Launcher.h"
+
 #ifdef XASH_SDL
-#include "../SDL2/include/SDL_main.h"
-#include "../SDL2/include/SDL_messagebox.h"
+#include <SDL_main.h>
+#include <SDL_messagebox.h>
 #endif
 
 #include <stdio.h>
@@ -13,9 +19,9 @@
 #define dlclose(x) FreeLibrary(x)
 #define dlsym(x,y) GetProcAddress(x,y)
 #define dlerror()  GetStringLastError()
-#if !__MINGW32__ && _MSC_VER >= 1200
+
 #define USE_WINMAIN
-#endif
+
 #ifndef XASH_DEDICATED
 #define XASHLIB "technoengine.dll"
 #else
@@ -54,7 +60,7 @@ static int         szArgc;
 static char** szArgv;
 static HINSTANCE	hEngine;
 
-static void Xash_Error(const char* szFmt, ...)
+static void TechnoEngine_Error(const char* szFmt, ...)
 {
 	static char	buffer[16384];	// must support > 1k messages
 	va_list		args;
@@ -64,11 +70,11 @@ static void Xash_Error(const char* szFmt, ...)
 	va_end(args);
 
 #ifdef XASH_SDL
-	SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "Xash Error", buffer, NULL);
+	SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "TechnoEngine Api: Error", buffer, NULL);
 #elif defined( _WIN32 )
-	MessageBoxA(NULL, buffer, "Xash Error", MB_OK);
+	MessageBoxA(NULL, buffer, "TechnoEngine Api: Error", MB_ICONERROR);
 #else
-	fprintf(stderr, "Xash Error: %s\n", buffer);
+	fprintf(stderr, "TechnoEngine Api: %s\n", buffer);
 #endif
 	exit(1);
 }
@@ -76,10 +82,10 @@ static void Xash_Error(const char* szFmt, ...)
 #ifdef _WIN32
 static const char* GetStringLastError()
 {
-	static char buf[1024];
+	static char buf[2024];
 
 	FormatMessageA(FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS,
-		NULL, GetLastError(), MAKELANGID(LANG_ENGLISH, SUBLANG_DEFAULT),
+		NULL, GetLastError(), MAKELANGID(LANG_RUSSIAN, SUBLANG_DEFAULT),
 		buf, sizeof(buf), NULL);
 
 	return buf;
@@ -88,22 +94,14 @@ static const char* GetStringLastError()
 
 static void Sys_LoadEngine(void)
 {
-#ifdef __HAIKU__
-	char path[PATH_MAX];
-	char* engine = getenv(E_MIRRORDIR);
-	strncpy(path, engine, PATH_MAX);
-	strncat(path, "/"XASHLIB, PATH_MAX);
-	if ((hEngine = dlmount(path)) == NULL)
-#else
 	if ((hEngine = dlmount(XASHLIB)) == NULL)
-#endif
 	{
-		Xash_Error("Unable to load the " XASHLIB ": %s", dlerror());
+		TechnoEngine_Error("Запуск невозможен так как на компьютере отсутствует " XASHLIB "", dlerror());
 	}
 
 	if ((Xash_Main = (pfnInit)dlsym(hEngine, "Host_Main")) == NULL)
 	{
-		Xash_Error(XASHLIB " missed 'Host_Main' export: %s", dlerror());
+		TechnoEngine_Error("Точка входа 'Host_Main' не обнаружена "XASHLIB "", dlerror());
 	}
 
 	// this is non-fatal for us but change game will not working
@@ -122,17 +120,18 @@ static void Sys_UnloadEngine(void)
 static void Sys_ChangeGame(const char* progname)
 {
 	if (!progname || !progname[0])
-		Xash_Error("Sys_ChangeGame: NULL gamedir");
+		TechnoEngine_Error("Папка ресурсов игры не найдена");
 
 	if (Xash_Shutdown == NULL)
-		Xash_Error("Sys_ChangeGame: missed 'Host_Shutdown' export\n");
-
+		TechnoEngine_Error("Точка входа в 'Host_Shutdown' client.dll не найдена");
+	
 	strncpy(szGameDir, progname, sizeof(szGameDir) - 1);
 
 	Sys_UnloadEngine();
 	Sys_LoadEngine();
 
 	Xash_Main(szArgc, szArgv, szGameDir, TRUE, Sys_ChangeGame);
+	exit(1);
 }
 
 _inline int Sys_Start(void)
@@ -161,12 +160,7 @@ _inline int Sys_Start(void)
 	}
 
 	Sys_LoadEngine();
-#ifndef __HAIKU__
 	ret = Xash_Main(szArgc, szArgv, GAME_PATH, FALSE, Xash_Shutdown ? Sys_ChangeGame : NULL);
-#else
-	const char* game = getenv(E_GAME);
-	ret = Xash_Main(szArgc, szArgv, game, false, Xash_Shutdown ? Sys_ChangeGame : NULL);
-#endif
 	Sys_UnloadEngine();
 
 	return ret;
@@ -181,15 +175,18 @@ int main(int argc, char** argv)
 	return Sys_Start();
 }
 #else
-
-#pragma comment(lib, "shell32.lib")
-
+//#pragma comment(lib, "shell32.lib")
 int __stdcall WinMain(HINSTANCE hInst, HINSTANCE hPrevInst, LPSTR cmdLine, int nShow)
 {
 	LPWSTR* lpArgv;
 	int ret, i;
-
+	//WNDCLASSEXW wcex;
+	//wcex.cbSize = sizeof(WNDCLASSEX);
 	lpArgv = CommandLineToArgvW(GetCommandLineW(), &szArgc);
+
+	//wcex.hIcon = LoadIcon(nShow, MAKEINTRESOURCE(IDI_ICON1));
+	//wcex.hIconSm = LoadIcon(wcex.hInstance, MAKEINTRESOURCE(IDI_ICON1));
+
 	szArgv = (char**)malloc(szArgc * sizeof(char*));
 
 	for (i = 0; i < szArgc; ++i)
@@ -206,7 +203,7 @@ int __stdcall WinMain(HINSTANCE hInst, HINSTANCE hPrevInst, LPSTR cmdLine, int n
 	for (; i < szArgc; ++i)
 		free(szArgv[i]);
 	free(szArgv);
-
+	//return RegisterClassExW(&wcex);
 	return ret;
 }
 #endif
